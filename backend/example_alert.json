@@ -1,0 +1,29 @@
+{
+  "timestamp": "2024-01-15T14:30:25.123456",
+  "src_ip": "192.168.1.10",
+  "dst_ip": "192.168.1.1",
+  "anomaly_score": 0.847,
+  "device_name": "IoT-Sensor-001",
+  "top_features": [
+    {
+      "name": "packet_rate",
+      "value": 1250.5,
+      "baseline": 150.0
+    },
+    {
+      "name": "connection_duration",
+      "value": 0.05,
+      "baseline": 2.5
+    },
+    {
+      "name": "bytes_sent",
+      "value": 524288,
+      "baseline": 8192
+    }
+  ]
+}
+
+
+
+
+
