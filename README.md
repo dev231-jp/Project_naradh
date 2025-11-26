@@ -15,16 +15,63 @@ A production-ready, hackathon-grade IoT Intrusion Detection System with real-tim
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Python 3.8+ 
+- Python 3.8+
 - Node.js 16+ and npm
 - Modern web browser
+
+## Windows Setup Instructions
+
+### Backend Setup (Windows)
+
+Open Command Prompt or PowerShell and run:
+
+```cmd
+cd Project_naradh/backend
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+copy .env.example .env
+rem Edit .env with your API keys (optional for basic functionality)
+python app.py
+```
+
+**Backend will run on http://localhost:5000**
+
+### Frontend Setup (Windows)
+
+Open a NEW Command Prompt or PowerShell window:
+
+```cmd
+cd Project_naradh/frontend
+npm install
+npm start
+```
+
+**Frontend will automatically open at http://localhost:3000**
+
+### Environment Configuration (Optional)
+
+For full chatbot functionality, edit `backend/.env`:
+
+```env
+OPENAI_API_KEY=your_actual_openai_api_key_here
+OPENAI_MODEL=gpt-4o-mini
+```
+
+> **Note:** The system works without API keys but provides enhanced responses with OpenAI integration.
+
+## Linux/Mac Setup
 
 ### 1. Setup Backend
 
 ```bash
-cd naradh/backend
+cd Project_naradh/backend
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
-python app.py
+cp .env.example .env
+# Edit .env with your API keys (optional)
+python3 app.py
 ```
 
 Backend will run on **http://localhost:5000**
@@ -32,7 +79,7 @@ Backend will run on **http://localhost:5000**
 ### 2. Setup Frontend
 
 ```bash
-cd naradh/frontend
+cd Project_naradh/frontend
 npm install
 npm start
 ```
@@ -120,10 +167,56 @@ print(response.json())
 - **Responsive Design** - Works on desktop, tablet, and mobile
 - **Interactive Charts** - Beautiful Recharts visualizations
 
+## 🏗️ Architecture Overview
+
+### Backend (Flask API)
+- **app.py:** Main Flask server with REST API endpoints
+- **chatbot/**: OpenAI-powered assistant with session management
+- **In-memory storage:** Last 200 alerts for real-time monitoring
+- **SQLite:** Chat session persistence
+- **Environment variables:** Configuration via python-dotenv
+- **Anomaly detection:** Scoring system with ML inference integration
+- **Device management:** Quarantine/unquarantine functionality
+
+### Chatbot System
+- **assistant.py:** OpenAI integration with fallback responses
+- **sessions_store.py:** Session persistence and management using SQLite
+- **templates.py:** Response templates for IoT security guidance
+- **Graceful degradation:** Works without OpenAI API key
+
+### Frontend (React SPA)
+- **App.js:** Main application with routing and real-time updates
+- **components/**: Reusable UI components (Alerts, Devices, Charts, ChatWidget)
+- **pages/**: Full-page components (Dashboard, Analytics, Settings)
+- **Real-time updates:** 3-second refresh intervals for live monitoring
+- **Professional UI:** Dark theme with responsive design
+- **Charts:** Interactive visualizations using Recharts library
+
+### API Integration
+- **REST endpoints:** Standard HTTP methods for data exchange
+- **CORS enabled:** Cross-origin requests from frontend to backend
+- **Error handling:** Comprehensive error responses and status codes
+- **JSON format:** Consistent data exchange format
+- **Session management:** Chat sessions with contextual assistance
+
+### Data Flow
+1. **ML Inference** → POST /alert (anomaly scoring)
+2. **Alert Storage** → In-memory cache (last 200 alerts)
+3. **Frontend Updates** → Real-time polling every 3 seconds
+4. **User Interaction** → Chat sessions via ChatWidget
+5. **Device Management** → Quarantine/unquarantine operations
+
+### Security Features
+- **Anomaly Scoring:** Real-time threat level assessment
+- **Device Isolation:** Automatic quarantine capabilities
+- **Attack Simulation:** Demo mode for testing and training
+- **Session Persistence:** Secure chat session storage
+- **API Key Protection:** Environment variable configuration
+
 ## 🏗️ Project Structure
 
 ```
-naradh/
+Project_naradh/
 ├── frontend/          # React dashboard
 │   ├── src/
 │   │   ├── components/
@@ -133,17 +226,27 @@ naradh/
 │   │   │   ├── AlertChart.js
 │   │   │   ├── Toast.js
 │   │   │   └── ChatWidget.js
+│   │   ├── pages/
+│   │   │   ├── Dashboard.js
+│   │   │   ├── Alerts.js
+│   │   │   ├── Devices.js
+│   │   │   ├── Analytics.js
+│   │   │   ├── Network.js
+│   │   │   └── Settings.js
 │   │   ├── App.js
 │   │   └── App.css
-│   └── package.json
+│   ├── package.json
+│   └── .env.example
 ├── backend/           # Flask API
 │   ├── app.py
 │   ├── requirements.txt
+│   ├── .env.example
 │   ├── chatbot/
 │   │   ├── assistant.py
 │   │   ├── sessions_store.py
 │   │   └── templates.py
 │   └── example_alert.json
+├── .gitignore
 └── README.md
 ```
 
